@@ -2,7 +2,25 @@ import { DevTool } from "@hookform/devtools";
 import { useForm } from "react-hook-form";
 
 const YoutubeForm = () => {
-  const { register, control, handleSubmit, formState } = useForm();
+  const { register, control, handleSubmit, formState } = useForm({
+    defaultValues:
+      // async () => {
+      //   const response = await fetch(
+      //     "https://jsonplaceholder.typicode.com/users/1"
+      //   );
+      //   const data = await response.json();
+      //   return {
+      //     username: "Batman",
+      //     email: data.email,
+      //     channel: "",
+      //   };
+      // },
+      {
+        username: "Batman",
+        email: "",
+        channel: "",
+      },
+  });
   const { errors } = formState;
 
   const onSubmit = (data) => {
