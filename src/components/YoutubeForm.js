@@ -3,34 +3,41 @@ import { useEffect } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 
 const YoutubeForm = () => {
-  const { register, control, handleSubmit, formState, watch, getValues } =
-    useForm({
-      defaultValues:
-        // async () => {
-        //   const response = await fetch(
-        //     "https://jsonplaceholder.typicode.com/users/1"
-        //   );
-        //   const data = await response.json();
-        //   return {
-        //     username: "Batman",
-        //     email: data.email,
-        //     channel: "",
-        //   };
-        // },
-        {
-          username: "Batman",
-          email: "",
-          channel: "",
-          social: {
-            twitter: "",
-            facebook: "",
-          },
-          phoneNumbers: ["", ""],
-          phNumbers: [{ number: "" }],
-          age: 0,
-          dob: new Date(),
+  const {
+    register,
+    control,
+    handleSubmit,
+    formState,
+    watch,
+    getValues,
+    setValue,
+  } = useForm({
+    defaultValues:
+      // async () => {
+      //   const response = await fetch(
+      //     "https://jsonplaceholder.typicode.com/users/1"
+      //   );
+      //   const data = await response.json();
+      //   return {
+      //     username: "Batman",
+      //     email: data.email,
+      //     channel: "",
+      //   };
+      // },
+      {
+        username: "Batman",
+        email: "",
+        channel: "",
+        social: {
+          twitter: "",
+          facebook: "",
         },
-    });
+        phoneNumbers: ["", ""],
+        phNumbers: [{ number: "" }],
+        age: 0,
+        dob: new Date(),
+      },
+  });
   const { errors } = formState;
 
   const { fields, append, remove } = useFieldArray({
@@ -47,6 +54,14 @@ const YoutubeForm = () => {
     // console.log("Get values", getValues("social"));
     // console.log("Get values", getValues("social.twitter"));
     console.log("Get values", getValues(["username", "channel"]));
+  };
+
+  const handleSetValue = () => {
+    setValue("username", "", {
+      shouldDirty: true,
+      shouldValidate: true,
+      shouldTouch: true,
+    });
   };
 
   // const watchUsername = watch("username");
@@ -194,6 +209,10 @@ const YoutubeForm = () => {
 
         <button type="button" onClick={handleGetValues}>
           Get values
+        </button>
+
+        <button type="button" onClick={handleSetValue}>
+          Set value
         </button>
       </form>
       <DevTool control={control} />
