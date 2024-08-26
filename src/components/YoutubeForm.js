@@ -12,6 +12,7 @@ const YoutubeForm = () => {
     getValues,
     setValue,
     reset,
+    trigger,
   } = useForm({
     defaultValues:
       // async () => {
@@ -259,6 +260,11 @@ const YoutubeForm = () => {
 
         <button type="button" onClick={handleSetValue}>
           Set value
+        </button>
+
+        {/* <button type="button" onClick={() => trigger()}> */}
+        <button type="button" onClick={() => trigger("channel")}>
+          Validate
         </button>
       </form>
       <DevTool control={control} />
