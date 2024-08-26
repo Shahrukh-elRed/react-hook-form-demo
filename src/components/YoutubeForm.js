@@ -11,6 +11,7 @@ const YoutubeForm = () => {
     watch,
     getValues,
     setValue,
+    reset,
   } = useForm({
     defaultValues:
       // async () => {
@@ -81,6 +82,12 @@ const YoutubeForm = () => {
       shouldTouch: true,
     });
   };
+
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset();
+    }
+  }, [isSubmitSuccessful, reset]);
 
   // const watchUsername = watch("username");
   // const watchUsername = watch(["username", "email"]);
@@ -232,6 +239,10 @@ const YoutubeForm = () => {
         </div>
 
         <button disabled={!isDirty || !isValid || isSubmitting}>Submit</button>
+
+        <button type="button" onClick={() => reset()}>
+          Reset
+        </button>
 
         <button type="button" onClick={handleGetValues}>
           Get values
