@@ -141,6 +141,13 @@ const YoutubeForm = () => {
                 notBlacklisted: (fieldValue) =>
                   !fieldValue.endsWith("baddomain.com") ||
                   "This domain is not supported",
+                emailAvailable: async (fieldValue) => {
+                  const response = await fetch(
+                    `https://jsonplaceholder.typicode.com/users?email=${fieldValue}`
+                  );
+                  const data = await response.json();
+                  return data.length == 0 || "Email already exists";
+                },
               },
             })}
           />
@@ -238,7 +245,8 @@ const YoutubeForm = () => {
           <p className="error">{errors.dob?.message}</p>
         </div>
 
-        <button disabled={!isDirty || !isValid || isSubmitting}>Submit</button>
+        {/* <button disabled={!isDirty || !isValid || isSubmitting}>Submit</button> */}
+        <button disabled={!isDirty || isSubmitting}>Submit</button>
 
         <button type="button" onClick={() => reset()}>
           Reset
